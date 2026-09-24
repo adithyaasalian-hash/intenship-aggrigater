@@ -1,0 +1,8 @@
+{
+  "version": 2,
+  "buildCommand": "npm --prefix web run build",
+  "outputDirectory": "web/dist",
+  "installCommand": "npm --prefix web install --no-audit --no-fund",
+  "framework": "vite",
+  "ignoreCommand": "git diff --quiet HEAD^ HEAD ./web/"
+}
