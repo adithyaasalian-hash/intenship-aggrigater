@@ -1,0 +1,161 @@
+# Skill taxonomy.
+#
+# canonical_name: [alias, alias, ...]
+#
+# The canonical name is what gets stored on profiles and opportunities, so both
+# sides of the match speak the same vocabulary. Aliases are what we look for in
+# raw text. Matching is case-insensitive and word-boundary aware, so "R" will
+# not fire on "React" and "go" will not fire on "going".
+#
+# This is the highest-leverage file in the ML service. Two hours spent adding
+# skills here beats any amount of model tuning. Add the skills that appear in
+# YOUR listings -- run `make skill-report` to see the most common unmatched
+# capitalised tokens across ingested descriptions.
+
+languages:
+  python:       [python, python3, py]
+  javascript:   [javascript, js, es6, ecmascript, vanilla js]
+  typescript:   [typescript, ts]
+  java:         [java, java8, java 8, java 11, java 17]
+  c:            [c programming, "c language"]
+  cpp:          [c++, cpp, "c plus plus"]
+  csharp:       ["c#", csharp, "c sharp", dotnet, "dot net", "asp net"]
+  go:           [golang, "go lang"]
+  rust:         [rust, rustlang]
+  ruby:         [ruby]
+  php:          [php]
+  swift:        [swift, swiftui]
+  kotlin:       [kotlin]
+  scala:        [scala]
+  r:            [rstats, "r programming", "r language"]
+  matlab:       [matlab]
+  sql:          [sql, mysql, postgres, postgresql, plsql, tsql, "t-sql"]
+  bash:         [bash, shell scripting, shell script, zsh]
+
+web_frontend:
+  react:        [react, react.js, reactjs, "react js"]
+  nextjs:       [next.js, nextjs, "next js"]
+  vue:          [vue, vue.js, vuejs, nuxt]
+  angular:      [angular, angularjs, "angular js"]
+  svelte:       [svelte, sveltekit]
+  html:         [html, html5]
+  css:          [css, css3]
+  tailwind:     [tailwind, tailwindcss, "tailwind css"]
+  sass:         [sass, scss, less]
+  bootstrap:    [bootstrap]
+  redux:        [redux, redux toolkit, rtk]
+  jquery:       [jquery]
+  webpack:      [webpack, vite, rollup, parcel]
+  react_native: [react native, "react-native"]
+  flutter:      [flutter, dart]
+
+web_backend:
+  nodejs:       [node.js, nodejs, "node js", node]
+  express:      [express, express.js, expressjs]
+  nestjs:       [nestjs, "nest.js"]
+  django:       [django]
+  flask:        [flask]
+  fastapi:      [fastapi, "fast api"]
+  spring:       [spring, spring boot, springboot]
+  rails:        [rails, "ruby on rails"]
+  laravel:      [laravel]
+  graphql:      [graphql, apollo]
+  rest_api:     [rest api, restful, "rest apis", api design]
+  grpc:         [grpc, protobuf, protocol buffers]
+  websockets:   [websocket, websockets, socket.io, socketio]
+  microservices: [microservices, "micro services"]
+
+data_stores:
+  mongodb:      [mongodb, mongo, mongoose]
+  redis:        [redis]
+  elasticsearch: [elasticsearch, elastic search, opensearch]
+  cassandra:    [cassandra]
+  dynamodb:     [dynamodb]
+  sqlite:       [sqlite]
+  neo4j:        [neo4j, graph database]
+  kafka:        [kafka, apache kafka]
+  rabbitmq:     [rabbitmq]
+  snowflake:    [snowflake]
+  bigquery:     [bigquery, "big query"]
+
+ml_ds:
+  machine_learning: [machine learning, ml, "machine-learning"]
+  deep_learning:    [deep learning, neural network, neural networks]
+  pytorch:      [pytorch, torch]
+  tensorflow:   [tensorflow, tf, keras]
+  scikit_learn: [scikit-learn, sklearn, "scikit learn"]
+  pandas:       [pandas]
+  numpy:        [numpy]
+  scipy:        [scipy]
+  matplotlib:   [matplotlib, seaborn, plotly]
+  opencv:       [opencv, "cv2", computer vision]
+  nlp:          [nlp, natural language processing, text mining]
+  transformers:  [transformers, huggingface, "hugging face", bert, gpt]
+  llm:          [llm, large language model, prompt engineering, rag, langchain]
+  recommender:  [recommender system, recommendation system, collaborative filtering]
+  time_series:  [time series, forecasting, arima]
+  statistics:   [statistics, statistical analysis, hypothesis testing, "a/b testing"]
+  data_analysis: [data analysis, data analytics, exploratory data analysis, eda]
+  feature_engineering: [feature engineering]
+  mlops:        [mlops, model deployment, mlflow, model serving]
+  spark:        [spark, pyspark, apache spark]
+  hadoop:       [hadoop, mapreduce, hive]
+  airflow:      [airflow, apache airflow, dagster, prefect]
+  dbt:          [dbt, "data build tool"]
+  etl:          [etl, elt, data pipeline, data pipelines]
+
+cloud_devops:
+  aws:          [aws, amazon web services, ec2, s3, lambda]
+  gcp:          [gcp, google cloud, google cloud platform]
+  azure:        [azure, microsoft azure]
+  docker:       [docker, containerization, containers]
+  kubernetes:   [kubernetes, k8s, helm]
+  terraform:    [terraform, infrastructure as code, iac]
+  ci_cd:        [ci/cd, cicd, "continuous integration", jenkins, github actions, gitlab ci]
+  linux:        [linux, unix, ubuntu]
+  nginx:        [nginx, apache server]
+  monitoring:   [prometheus, grafana, datadog, observability]
+  serverless:   [serverless, cloud functions, vercel, netlify]
+
+tools_practices:
+  git:          [git, github, gitlab, bitbucket, version control]
+  testing:      [unit testing, jest, pytest, junit, cypress, playwright, selenium, tdd]
+  agile:        [agile, scrum, kanban, sprint planning]
+  jira:         [jira, confluence, asana, trello]
+  postman:      [postman, insomnia, api testing]
+  system_design: [system design, distributed systems, scalability]
+  data_structures: [data structures, algorithms, dsa, "ds&a"]
+  oop:          [oop, object oriented, object-oriented programming]
+  security:     [cybersecurity, penetration testing, owasp, application security]
+  web3:         [blockchain, solidity, smart contract, web3, ethereum]
+
+design:
+  figma:        [figma, sketch, adobe xd]
+  ui_design:    [ui design, user interface design, visual design]
+  ux_design:    [ux design, user experience, ux research, usability testing]
+  wireframing:  [wireframe, wireframing, prototyping, mockup]
+  design_systems: [design system, design systems, component library]
+  accessibility: [accessibility, a11y, wcag]
+  user_research: [user research, user interviews, persona]
+  photoshop:    [photoshop, illustrator, adobe creative suite]
+  motion:       [after effects, motion design, animation]
+
+business:
+  excel:        [excel, advanced excel, google sheets, spreadsheets]
+  powerbi:      [power bi, powerbi]
+  tableau:      [tableau, looker, metabase]
+  seo:          [seo, search engine optimization, sem]
+  content:      [content writing, copywriting, technical writing, blogging]
+  social_media: [social media marketing, instagram marketing, linkedin marketing]
+  digital_marketing: [digital marketing, google ads, facebook ads, performance marketing]
+  product_management: [product management, product owner, roadmap, prd]
+  market_research: [market research, competitor analysis]
+  crm:          [salesforce, hubspot, crm]
+  finance:      [financial modeling, valuation, accounting, tally]
+
+soft:
+  communication:  [communication skills, verbal communication, presentation skills]
+  teamwork:       [teamwork, collaboration, cross-functional]
+  problem_solving: [problem solving, analytical thinking, critical thinking]
+  leadership:     [leadership, mentoring, team lead]
+  ownership:      [ownership, self-starter, self starter, proactive]

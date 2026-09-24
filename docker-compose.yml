@@ -1,0 +1,86 @@
+# One command, four containers, zero signups:
+#
+#     cp .env.example .env && docker compose up --build
+#
+# First build takes 3-6 minutes, mostly downloading the embedding model into
+# the ml image. After that, `docker compose up` is seconds.
+#
+#     web  http://localhost:5173
+#     api  http://localhost:4000/api/health
+#     ml   http://localhost:8000/health
+
+services:
+  mongo:
+    image: mongo:7
+    restart: unless-stopped
+    volumes:
+      - mongo-data:/data/db
+    ports:
+      - '27017:27017'   # exposed so you can point Compass at it while building
+    healthcheck:
+      test: ['CMD', 'mongosh', '--quiet', '--eval', "db.adminCommand('ping')"]
+      interval: 10s
+      timeout: 5s
+      retries: 5
+
+  ml:
+    build: ./ml
+    restart: unless-stopped
+    environment:
+      MONGO_URI: mongodb://mongo:27017
+      MONGO_DB: ${MONGO_DB:-internships}
+      EMBED_MODEL: ${EMBED_MODEL:-sentence-transformers/all-MiniLM-L6-v2}
+      LOG_LEVEL: ${LOG_LEVEL:-INFO}
+    ports:
+      - '8000:8000'
+    depends_on:
+      mongo:
+        condition: service_healthy
+
+  api:
+    build: ./api
+    restart: unless-stopped
+    environment:
+      NODE_ENV: ${NODE_ENV:-development}
+      PORT: 4000
+      MONGO_URI: mongodb://mongo:27017
+      MONGO_DB: ${MONGO_DB:-internships}
+      ML_URL: http://ml:8000
+      JWT_SECRET: ${JWT_SECRET:-dev-only-change-me}
+      ADMIN_KEY: ${ADMIN_KEY:-dev-admin-key}
+      WEB_ORIGIN: ${WEB_ORIGIN:-http://localhost:5173}
+      INGEST_ON_BOOT: ${INGEST_ON_BOOT:-true}
+      INGEST_CRON: ${INGEST_CRON:-0 */6 * * *}
+      ADZUNA_APP_ID: ${ADZUNA_APP_ID:-}
+      ADZUNA_APP_KEY: ${ADZUNA_APP_KEY:-}
+      ADZUNA_COUNTRY: ${ADZUNA_COUNTRY:-in}
+      GREENHOUSE_BOARDS: ${GREENHOUSE_BOARDS:-}
+      LEVER_BOARDS: ${LEVER_BOARDS:-}
+    ports:
+      - '4000:4000'
+    depends_on:
+      mongo:
+        condition: service_healthy
+      ml:
+        condition: service_started
+
+  web:
+    image: node:20-slim
+    working_dir: /srv
+    # Dev server rather than the nginx image, so hot reload works while you
+    # build. `docker compose -f docker-compose.yml -f docker-compose.prod.yml up`
+    # uses web/Dockerfile instead when you want the production bundle.
+    command: sh -c "npm install --no-audit --no-fund && npm run dev -- --host 0.0.0.0"
+    environment:
+      VITE_API_PROXY: http://api:4000
+    volumes:
+      - ./web:/srv
+      - web-node-modules:/srv/node_modules
+    ports:
+      - '5173:5173'
+    depends_on:
+      - api
+
+volumes:
+  mongo-data:
+  web-node-modules:

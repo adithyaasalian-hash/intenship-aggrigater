@@ -1,0 +1,37 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+@layer base {
+  html { -webkit-font-smoothing: antialiased; }
+  body { @apply bg-paper text-ink font-sans; }
+  :focus-visible { @apply outline-none ring-2 ring-brand ring-offset-2 ring-offset-paper; }
+}
+
+@layer components {
+  .card { @apply bg-paper-card border border-paper-rule rounded-card; }
+  .chip {
+    @apply inline-flex items-center gap-1 rounded-chip border px-2 py-0.5
+           text-xs font-medium whitespace-nowrap;
+  }
+  .btn {
+    @apply inline-flex items-center justify-center gap-2 rounded-chip px-4 py-2
+           text-sm font-medium transition-colors disabled:opacity-50
+           disabled:cursor-not-allowed;
+  }
+  .btn-primary { @apply btn bg-brand text-white hover:bg-brand-dark; }
+  .btn-ghost { @apply btn border border-paper-rule bg-paper-card hover:bg-paper; }
+  .input {
+    @apply w-full rounded-chip border border-paper-rule bg-paper-card px-3 py-2
+           text-sm placeholder:text-ink-muted focus:border-brand;
+  }
+  .label { @apply block text-xs font-medium uppercase tracking-wider text-ink-muted mb-1.5; }
+}
+
+/* Respect the reader. Motion is a garnish, never the mechanism. */
+@media (prefers-reduced-motion: reduce) {
+  *, *::before, *::after {
+    animation-duration: 0.01ms !important;
+    transition-duration: 0.01ms !important;
+  }
+}
